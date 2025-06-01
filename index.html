@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self' https://*.telegram.org;
+      script-src 'self' 'unsafe-inline' https://www.gstatic.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https://*;
+      connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://script.google.com https://script.googleusercontent.com;
+      frame-src 'self' https://telegram.org https://script.google.com https://script.googleusercontent.com;
+    ">
+    <title>Автомобильный дашборд</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>НА</h1>
+            <div class="date-selector">
+                <select id="month-select">
+                    <option value="1">Январь</option>
+                    <option value="2">Февраль</option>
+                    <option value="3">Март</option>
+                    <option value="4">Апрель</option>
+                    <option value="5">Май</option>
+                    <option value="6">Июнь</option>
+                    <option value="7">Июль</option>
+                    <option value="8">Август</option>
+                    <option value="9">Сентябрь</option>
+                    <option value="10">Октябрь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+
+                <select id="year-select">
+                    <!-- Годы заполнятся скриптом -->
+                </select>
+
+                <button id="apply-date">Применить</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button data-count="0" class="tab-btn active">НА</button>
+            <button data-count="1" class="tab-btn">АСП</button>
+            <button data-count="2" class="tab-btn">СТС</button>
+            <button data-count="3" class="tab-btn">МКЦ</button>
+            <button data-count="4" class="tab-btn">БАЛАНС</button>
+          </div>
+
+        <!-- Вкладка "Новые авто" -->
+        <div class="tab-content active" id="new-cars-tab">
+            <div class="cards-container">
+                <!-- Карточки будут создаваться динамически -->
+            </div>
+        </div>
+
+        <!-- Вкладка "Авто с пробегом" -->
+        <div class="tab-content" id="used-cars-tab">
+            <div class="cards-container"></div>
+        </div>
+
+        <div class="tab-content" id="service-tab"></div>
+        <!-- Новая вкладка МКЦ -->
+        <div class="tab-content" id="mkc-tab"></div>
+        <!-- Вкладка "Баланс" -->
+        <div class="tab-content" id="balance-tab"></div>
+    </div>
+
+    <script src="assets/app.js"></script>
+<script>
+    function loadCSS(href) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `${href}?t=${Date.now()}`;
+        document.head.appendChild(link);
+    }
+    loadCSS('assets/style.css');
+</script>  
+</body>
+</html>
