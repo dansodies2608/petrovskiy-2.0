@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmiq2x3zkNetsY9DPJym3tVSPkuC4YY8lWa7w270PILhW4XgaaLAjAb0AkHk-pr2GbVw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwK_hEALq1EjnL2Sf2U71PFAqvJgvM4bI2QPREdGUcGqE2iZceZr1T13VtwnnDPPfo/exec";
 const SECRET_KEY = "b3821cce5703d067b14f4e63c9e65fd86ce24f5de0438f8a69a006167f2899ca";
 
 // --------------------------------------- ОСНОВНОЙ КОД ------------------------------------------------ //
