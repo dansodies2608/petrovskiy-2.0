@@ -111,6 +111,7 @@ async function loadData() {
     if (data.status !== "success") throw new Error(data.message);
     
     dashboardData = data;
+    console.log(dashboardData)
     processAndDisplayData(data);
   } catch (error) {
     console.error("Ошибка загрузки данных:", error);
