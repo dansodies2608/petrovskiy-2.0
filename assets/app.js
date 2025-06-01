@@ -84,50 +84,30 @@ function setupDateSelector() {
   });
 }
 
-async function loadData(isInitialLoad) {
+async function loadData() {
   try {
-    const monthSelect = document.getElementById("month-select");
-    const yearSelect = document.getElementById("year-select");
-    const month = parseInt(monthSelect.value);
-    const year = parseInt(yearSelect.value);
+    const month = document.getElementById("month-select").value;
+    const year = document.getElementById("year-select").value;
+    
+    // Проверка на будущую дату
     const today = new Date();
-
-    if (year > today.getFullYear() || (year === today.getFullYear() && month > today.getMonth() + 1)) {
+    if (year > today.getFullYear() || (year == today.getFullYear() && month > today.getMonth() + 1)) {
       showError("Нельзя выбрать будущую дату");
       return;
     }
-
-    const salesUrl = `${SCRIPT_URL}?key=${SECRET_KEY}&month=${month}&year=${year}&type=sales`;
-    const salesResponse = await fetch(salesUrl);
-    if (!salesResponse.ok) throw new Error(`Ошибка HTTP: ${salesResponse.status}`);
-
-    const salesData = await salesResponse.json();
-    if (salesData.status !== "success") throw new Error(salesData.message);
-
-    const serviceUrl = `${SCRIPT_URL}?key=${SECRET_KEY}&month=${month}&year=${year}&type=service`;
-    const serviceResponse = await fetch(serviceUrl);
-    const serviceData = await serviceResponse.json();
-
-    const mkcUrl = `${SCRIPT_URL}?key=${SECRET_KEY}&month=${month}&year=${year}&type=mkc`;
-    const mkcResponse = await fetch(mkcUrl);
-    const mkcData = await mkcResponse.json();
-
-    const balanceUrl = `${SCRIPT_URL}?key=${SECRET_KEY}&type=balance`;
-    const balanceResponse = await fetch(balanceUrl);
-    const balanceData = await balanceResponse.json();
-
-    dashboardData = {
-      ...salesData,
-      serviceData: serviceData.data,
-      mkcData: mkcData.data,
-      balanceData: balanceData.data || balanceData,
-      currentMonth: salesData.currentMonth,
-      selectedMonth: salesData.selectedMonth,
-      selectedYear: salesData.selectedYear,
-    };
-    console.log(dashboardData);
-
-    processAndDisplayData(dashboardData);
+    
+    // Запрос всех данных одним вызовом
+    const url = `${SCRIPT_URL}?key=${SECRET_KEY}&month=${month}&year=${year}&type=all`;
+    const response = await fetch(url);
+    
+    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+    
+    const data = await response.json();
+    if (data.status !== "success") throw new Error(data.message);
+    
+    dashboardData = data;
+    console.log(data);
+    processAndDisplayData(data);
   } catch (error) {
     console.error("Ошибка загрузки данных:", error);
     showError("Не удалось загрузить данные. Пожалуйста, попробуйте позже.");
